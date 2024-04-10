@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # react-frontend:
+  # build: ./react-frontend
+  # ports:
+  #   - '3000:3000'
+  # volumes:
+  #   - ./react-frontend/frontend-app:/app/
+  # depends_on:
+  #   - django-backend
+
+  # django-backend:
+  #   build: ./django-app
+  #   volumes:
+  #     - ./django-app/transcendance:/app/
+  #     - ./django-app/django-init.sh:/app/django-init.sh
+  #   ports:
+  #     - 8000:8000
+  #   env_file:
+  #     - ./.env-config
+  #   depends_on:
+  #     - db-docker
+  #     - rabbitmq
+  #   entrypoint: [ "/app/django-init.sh" ]
+
+  game-visual:
+    build: ./game-visual
+    volumes:
+      - ./game-visual/game-visual:/app/
+      - ./game-visual/django-init.sh:/app/django-init.sh
+    ports:
+      - 8080:8000
+    env_file:
+      - ./.env-config
+    entrypoint: [ "/app/django-init.sh" ]
+
+  gameserver:
+    build: ./game_server
+    ports:
+      - "8002:8000"
+
+  # db-docker:
+  #   image: postgres:16-bookworm
+  #   volumes:
+  #     - ./db_data:/var/lib/postgresql/data/
+  #   environment:
+  #     - POSTGRES_USER=transcendance
+  #     - POSTGRES_PASSWORD=transcendance
+  #     - POSTGRES_DB=transcendance_dev
+  #     - PGDATA= /var/lib/postgresql/data/db/
+  #   ports:
+  #     - 5432:5432 #For debug purpose
+
+  # rabbitmq:
+  #   image: rabbitmq:3-management
+  #   ports:
+  #     - 5672:5672 #Operation port
+  #     - 15672:15672 #Managment UI
+  #   volumes:
+  #     - ./rabbitmq_data:/var/lib/rabbitmq

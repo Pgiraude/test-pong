@@ -1,0 +1,19 @@
+the container can serve the pong game on a browser connecting to :
+http://localhost:8080/game/
+immediatly after launching with "docker-compose up --build"
+
+to test the pong without launchung a container first, you need to go to "./game-visual/pong"
+
+"npm install"
+"npm run dev"
+and the game is accessible at the same adress:
+http://localhost:8080/game/
+but now it will relaunch if it detect a code change in the source code in the pong folder.
+
+To update the container after making change in the folder you need to run, from the folder"./game-visual/pong"
+"npm build"
+and copy the content of "./game-visual/pong/dist/assets" to the folder
+"./game-visual/game-visual/three/static/assets"
+
+and update the name of the files "index-XXXXXX.js" inside the file
+./game-visual/game-visual/three/templates/three/game.html (line 11 and 12)
